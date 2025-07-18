@@ -1,14 +1,12 @@
 package com.ecews.outreachquestionnaire.contoller;
 
+import com.ecews.outreachquestionnaire.dto.BiodataDTO;
 import com.ecews.outreachquestionnaire.dto.CreateFormDTO;
 import com.ecews.outreachquestionnaire.service.OutreachQuestionnaireService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
@@ -26,6 +24,14 @@ public class OutreachQuestionnaireController {
                 .created(location)
                 .body(id);
     }
+
+    @PutMapping("/{id}/biodata")
+    public ResponseEntity<Void> updateBiodata(@PathVariable Long id, @Valid  @RequestBody BiodataDTO dto) {
+        outreachQuestionnaireService.updateBiodata(id, dto);
+        return ResponseEntity.accepted().build();
+    }
+
+
 
 
 }
