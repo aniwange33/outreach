@@ -1,5 +1,8 @@
 package com.ecews.outreachquestionnaire.dto;
 
+import lombok.Data;
+
+@Data
 public class VitalsDTO {
     private Double weight;
     private Double height;
