@@ -2,6 +2,7 @@ package com.ecews.outreachquestionnaire.service.serviceImp;
 
 import com.ecews.outreachquestionnaire.dto.*;
 import com.ecews.outreachquestionnaire.mapper.BiodataToQuestionnaireMapper;
+import com.ecews.outreachquestionnaire.mapper.VitalsToQuestionaireMapper;
 import com.ecews.outreachquestionnaire.model.OutreachQuestionnaire;
 import com.ecews.outreachquestionnaire.repository.OutreachQuestionnaireRepository;
 import com.ecews.outreachquestionnaire.service.OutreachQuestionnaireService;
@@ -16,6 +17,7 @@ public class OutreachQuestionnaireServiceImp implements OutreachQuestionnaireSer
 
     private final OutreachQuestionnaireRepository outreachQuestionnaireRepository;
     private final BiodataToQuestionnaireMapper biodataToQuestionnaireMapper;
+    private final VitalsToQuestionaireMapper vitalsToQuestionaireMapper;
 
     @Override
     @Transactional
@@ -29,6 +31,22 @@ public class OutreachQuestionnaireServiceImp implements OutreachQuestionnaireSer
     }
 
     @Override
+    @Transactional
+    public Long updateBiodata(Long id, BiodataDTO dto) {
+        OutreachQuestionnaire questionnaire = getOutreachQuestionnaire(id);
+        biodataToQuestionnaireMapper.apply(questionnaire, dto);
+        return questionnaire.getId();
+    }
+
+    @Override
+    @Transactional
+    public Long updateVitals(Long id, VitalsDTO dto) {
+        OutreachQuestionnaire questionnaire = getOutreachQuestionnaire(id);
+        vitalsToQuestionaireMapper.apply(questionnaire, dto);
+        return questionnaire.getId();
+    }
+
+    @Override
     public Long updateInvestigations(Long id, InvestigationDTO dto) {
         return 0L;
     }
@@ -39,24 +57,10 @@ public class OutreachQuestionnaireServiceImp implements OutreachQuestionnaireSer
     }
 
     @Override
-    public Long updateVitals(Long id, VitalsDTO dto) {
-        return 0L;
-    }
-
-    @Override
     public Long updateMedicalHistory(Long id, MedicalHistoryDTO dto) {
         return 0L;
     }
 
-    @Override
-    @Transactional
-    public Long updateBiodata(Long id, BiodataDTO dto) {
-        OutreachQuestionnaire questionnaire =
-                outreachQuestionnaireRepository.findById(id)
-                        .orElseThrow(() -> new IllegalArgumentException("User not found with  id " + id));
-        biodataToQuestionnaireMapper.apply(questionnaire, dto);
-        return questionnaire.getId();
-    }
 
     @Override
     public OutreachQuestionnaireDTO findById(Long id) {
@@ -66,5 +70,10 @@ public class OutreachQuestionnaireServiceImp implements OutreachQuestionnaireSer
     @Override
     public OutreachQuestionnaireDTO findByClientNumber(String ClientNumber) {
         return null;
+    }
+
+    private OutreachQuestionnaire getOutreachQuestionnaire(Long id) {
+        return outreachQuestionnaireRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with  id " + id));
     }
 }

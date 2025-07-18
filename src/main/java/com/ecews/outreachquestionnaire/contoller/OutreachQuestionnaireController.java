@@ -25,36 +25,35 @@ public class OutreachQuestionnaireController {
     }
 
     @PutMapping("/{id}/biodata")
-    public ResponseEntity<Void> updateBiodata(@PathVariable Long id, @Valid  @RequestBody BiodataDTO dto) {
+    public ResponseEntity<Void> updateBiodata(@PathVariable Long id, @Valid @RequestBody BiodataDTO dto) {
         outreachQuestionnaireService.updateBiodata(id, dto);
-        return ResponseEntity.accepted().build();
+        return ResponseEntity.noContent().build();
     }
 
 
     @PutMapping("/{id}/vitals")
-    public ResponseEntity<Void> updateVitals(@PathVariable Long id, @Valid   @RequestBody VitalsDTO dto) {
+    public ResponseEntity<Void> updateVitals(@PathVariable Long id, @Valid @RequestBody VitalsDTO dto) {
         outreachQuestionnaireService.updateVitals(id, dto);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}/medical-history")
-    public ResponseEntity<Void> updateMedicalHistory(@PathVariable Long id, @Valid  @RequestBody MedicalHistoryDTO dto) {
+    public ResponseEntity<Void> updateMedicalHistory(@PathVariable Long id, @Valid @RequestBody MedicalHistoryDTO dto) {
         outreachQuestionnaireService.updateMedicalHistory(id, dto);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}/investigations")
-    public ResponseEntity<Void> updateInvestigations(@PathVariable Long id, @Valid  @RequestBody InvestigationDTO dto) {
+    public ResponseEntity<Void> updateInvestigations(@PathVariable Long id, @Valid @RequestBody InvestigationDTO dto) {
         outreachQuestionnaireService.updateInvestigations(id, dto);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}/clinical-review")
-    public ResponseEntity<Void> updateClinicalReview(@PathVariable Long id, @Valid  @RequestBody ClinicalReviewDTO dto) {
+    public ResponseEntity<Void> updateClinicalReview(@PathVariable Long id, @Valid @RequestBody ClinicalReviewDTO dto) {
         outreachQuestionnaireService.updateClinicalReview(id, dto);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
-
 
 
 }
