@@ -1,8 +1,10 @@
 package com.ecews.outreachquestionnaire.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -12,11 +14,11 @@ import java.time.LocalDateTime;
 @Table(name = "outreach_questionnaire")
 @Getter
 @Setter
+@DynamicUpdate
 public class OutreachQuestionnaire  extends Auditable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
 
     @Version
     private Integer version;

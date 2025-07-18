@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface  OutreachQuestionnaireRepository  extends  JpaRepository<OutreachQuestionnaire, Integer> {
+public interface  OutreachQuestionnaireRepository  extends  JpaRepository<OutreachQuestionnaire, Long> {
 
     Optional<OutreachQuestionnaire> findByClientNumber(String clientNumber);
     boolean existsByClientNumber(String clientNumber);

@@ -1,10 +1,12 @@
 package com.ecews.outreachquestionnaire.service.serviceImp;
 
 import com.ecews.outreachquestionnaire.dto.*;
+import com.ecews.outreachquestionnaire.mapper.BiodataToQuestionnaireMapper;
 import com.ecews.outreachquestionnaire.model.OutreachQuestionnaire;
 import com.ecews.outreachquestionnaire.repository.OutreachQuestionnaireRepository;
 import com.ecews.outreachquestionnaire.service.OutreachQuestionnaireService;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,12 +15,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class OutreachQuestionnaireServiceImp implements OutreachQuestionnaireService {
 
     private final OutreachQuestionnaireRepository outreachQuestionnaireRepository;
+    private final BiodataToQuestionnaireMapper biodataToQuestionnaireMapper;
 
     @Override
     @Transactional
     public Long create(CreateFormDTO dto) {
         boolean existsByClientNumber = outreachQuestionnaireRepository.existsByClientNumber(dto.getClientNumber());
-        if (existsByClientNumber) throw new IllegalArgumentException("Client number "+dto.getClientNumber() + " already exists");
+        if (existsByClientNumber)
+            throw new IllegalArgumentException("Client number " + dto.getClientNumber() + " already exists");
         OutreachQuestionnaire questionnaire = new OutreachQuestionnaire();
         questionnaire.setClientNumber(dto.getClientNumber());
         return outreachQuestionnaireRepository.save(questionnaire).getId();
@@ -45,8 +49,13 @@ public class OutreachQuestionnaireServiceImp implements OutreachQuestionnaireSer
     }
 
     @Override
+    @Transactional
     public Long updateBiodata(Long id, BiodataDTO dto) {
-        return 0L;
+        OutreachQuestionnaire questionnaire =
+                outreachQuestionnaireRepository.findById(id)
+                        .orElseThrow(() -> new IllegalArgumentException("User not found with  id " + id));
+        biodataToQuestionnaireMapper.apply(questionnaire, dto);
+        return questionnaire.getId();
     }
 
     @Override
