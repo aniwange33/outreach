@@ -1,7 +1,6 @@
 package com.ecews.outreachquestionnaire.contoller;
 
-import com.ecews.outreachquestionnaire.dto.BiodataDTO;
-import com.ecews.outreachquestionnaire.dto.CreateFormDTO;
+import com.ecews.outreachquestionnaire.dto.*;
 import com.ecews.outreachquestionnaire.service.OutreachQuestionnaireService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +30,30 @@ public class OutreachQuestionnaireController {
         return ResponseEntity.accepted().build();
     }
 
+
+    @PutMapping("/{id}/vitals")
+    public ResponseEntity<Void> updateVitals(@PathVariable Long id, @Valid   @RequestBody VitalsDTO dto) {
+        outreachQuestionnaireService.updateVitals(id, dto);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{id}/medical-history")
+    public ResponseEntity<Void> updateMedicalHistory(@PathVariable Long id, @Valid  @RequestBody MedicalHistoryDTO dto) {
+        outreachQuestionnaireService.updateMedicalHistory(id, dto);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{id}/investigations")
+    public ResponseEntity<Void> updateInvestigations(@PathVariable Long id, @Valid  @RequestBody InvestigationDTO dto) {
+        outreachQuestionnaireService.updateInvestigations(id, dto);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{id}/clinical-review")
+    public ResponseEntity<Void> updateClinicalReview(@PathVariable Long id, @Valid  @RequestBody ClinicalReviewDTO dto) {
+        outreachQuestionnaireService.updateClinicalReview(id, dto);
+        return ResponseEntity.ok().build();
+    }
 
 
 
